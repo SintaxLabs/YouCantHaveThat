@@ -1,0 +1,20 @@
+name: InventoryShield
+version: '1.0-1.21.5'
+main: me.sintaxlabs.inventoryShield.InventoryShield
+api-version: '1.21'
+
+
+commands:
+  reloadconfig:
+    description: Reload the plugin config
+    usage: /inventoryshield <subcommand>
+    aliases: [ inventoryshield, invshield, ishield ]
+    permission: inventoryshield.reload
+
+permissions:
+  inventoryshield.bypass:
+    description: Allows user to bypass Bad Item Checks.
+    default: op
+  inventoryshield.reload:
+    description: Allows user to reload InventoryShield.
+    default: op

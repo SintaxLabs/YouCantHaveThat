@@ -1,0 +1,31 @@
+#-----------------------------------------------#
+#                InventoryShield                #
+#                                               #
+#                  Sintax Labs                  #
+#-----------------------------------------------#
+
+#-----------------------------------------------#
+#                 General Options               #
+#-----------------------------------------------#
+
+
+# This will not allow blocks from the list to be broken.
+anti-block-break: true
+
+# The list will block these items from the following actions:
+# - Placing
+# - Picking Up
+# - Breaking (Optional)
+blocked-items:
+  - BEDROCK
+  - BARRIER
+  - COMMAND_BLOCK
+  - CHAIN_COMMAND_BLOCK
+  - REPEATING_COMMAND_BLOCK
+  - END_PORTAL_FRAME
+  - LIGHT
+  - COMMAND_BLOCK_MINECART
+  - DEBUG_STICK
+
+# End Crystals cannot be blocked due to not being a block.
+block-End-Crystal-Placement: false
