@@ -1,2 +1,2 @@
 # InventoryShield
-Lightweight Protection against any items/blocks and illegal enchants.
+Lightweight Protection against any items/blocks.
