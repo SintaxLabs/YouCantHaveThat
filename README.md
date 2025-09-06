@@ -1,6 +1,5 @@
-<img width="1280" height="460" alt="wbjhgb5q6f841 png-720 - Copy" src="https://github.com/user-attachments/assets/fd6a383f-5a11-4607-9a13-ac2552d2c683" />
+<img width="1280" height="460" alt="IS-Wallpaper" src="https://github.com/user-attachments/assets/65e89b62-59d8-472a-9cc8-c25d2414a872" />
 
-# InventoryShield
 Lightweight inventory protection against illegal items including any item of your choice. 
 
 Drop a ⭐ to support and stay up to date!
