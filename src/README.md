@@ -1,5 +1,5 @@
 # Source Code
-The **ChunkShield** folder contains the latest changes and updates between releases.
+The **YouCantHaveThat** folder contains the latest changes and updates between releases.
 
 For stable releases, check the archive folder.
 
