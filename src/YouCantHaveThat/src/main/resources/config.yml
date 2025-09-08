@@ -1,0 +1,27 @@
+#-----------------------------------------------#
+#                YouCantHaveThat                #
+#                                               #
+#                  SintaxLabs                   #
+#-----------------------------------------------#
+
+# Blocks listed items from getting placed or interacted with.
+AntiBreak: true
+# AntiBreak must be true. When a listed item is attempted to be broken, it will simply vanish.
+BreakIntoAir: false
+
+# The list will block these items from the following actions:
+# - Placing
+# - Picking Up
+# - Breaking (Optional)
+blocked-items:
+  - COMMAND_BLOCK
+  - COMMAND_BLOCK_MINECART
+  - CHAIN_COMMAND_BLOCK
+  - REPEATING_COMMAND_BLOCK
+  - BEDROCK
+  - BARRIER
+  - END_PORTAL_FRAME
+  - LIGHT
+  - DEBUG_STICK
+  - CREEPER_SPAWN_EGG
+  - VILLAGER_SPAWN_EGG
