@@ -2,7 +2,7 @@
 
 
 
-> Lightweight protection against obtaining any items of your choice.
+> Prevents obtaining any item of your choice.
 
 Drop a ⭐ to support and stay up to date!
 
