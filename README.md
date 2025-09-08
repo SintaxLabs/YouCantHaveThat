@@ -2,10 +2,20 @@
 
 
 
-> Lightweight inventory protection against illegal items including any item of your choice. 
+> Lightweight protection against obtaining any items of your choice.
 
 Drop a ⭐ to support and stay up to date!
 
 Consider [donating](https://ko-fi.com/jammerz), no pressure 🩷
 
-## This page will be updated soon.
+## Support
+| MC Version    | API  | Support |
+| :---------:   | :-:  | :-----: |
+| 1.16.5 - 1.21.x | 1.16 |  ✅ |
+> Read more on how we update [here.](https://github.com/eh-K/Spigoty/blob/main/API/Codebase%20Unification.md)
+
+## Features
+- Prevents obtaining / breaking / placing.
+- Scans inventory/containers when opened.
+- Detects offhand.
+- Lightweight. Operates completely through player actions.
