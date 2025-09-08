@@ -2,7 +2,7 @@
 
 
 
-> Prevents obtaining any item of your choice.
+> Prevents obtaining/breaking any item of your choice.
 
 Drop a ⭐ to support and stay up to date!
 
