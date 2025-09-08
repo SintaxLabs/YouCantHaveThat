@@ -1,4 +1,5 @@
-<img width="1280" height="460" alt="YCHT-Wallpaper" src="https://github.com/user-attachments/assets/a28aaa17-bde6-4db1-812c-63d1507cbcef" />
+<img width="1280" height="460" alt="YCHT-Wallpaper" src="https://github.com/user-attachments/assets/6cc999eb-897e-4ba5-8681-21b8684d8065" />
+
 
 
 > Lightweight inventory protection against illegal items including any item of your choice. 
