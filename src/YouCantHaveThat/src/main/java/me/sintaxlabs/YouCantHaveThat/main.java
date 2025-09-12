@@ -168,20 +168,23 @@ public final class main extends JavaPlugin implements Listener
     @EventHandler
     public void inventoryCheck2 (EntityPickupItemEvent e)
     {
-        Item item = e.getItem();
-        Player player = (Player) e.getEntity();
-        PlayerInventory inventory = player.getInventory();
-        ItemStack secondHand = inventory.getItemInOffHand();
-        @NotNull LivingEntity entity = e.getEntity();
-        @NotNull Material material = e.getItem().getItemStack().getType();
-
-        if (entity instanceof Player && !player.hasPermission("youcanthavethat.bypass"))
+        @NotNull Entity entity = e.getEntity();
+        if (entity instanceof Player)
         {
-            if (blockedItems.contains(material))
+            Player player = (Player) e.getEntity();
+            if (!player.hasPermission("youcanthavethat.bypass"))
             {
-                e.setCancelled(true);
-                item.remove();
-                checkInventoryProcess(inventory, secondHand);
+                Item item = e.getItem();
+                PlayerInventory inventory = player.getInventory();
+                ItemStack secondHand = inventory.getItemInOffHand();
+                @NotNull Material material = e.getItem().getItemStack().getType();
+                
+                if (blockedItems.contains(material))
+                {
+                    e.setCancelled(true);
+                    item.remove();
+                    checkInventoryProcess(inventory, secondHand);
+                }
             }
         }
     }
