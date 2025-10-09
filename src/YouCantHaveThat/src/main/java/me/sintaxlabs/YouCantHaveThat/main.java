@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,6 +22,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+/*
+    MavenWare Development
+    Version: 1.0.2
+    Date: October 8, 2025
+
+    Follow applicable laws for Apache 2.0.
+
+    @jammingcat21 - Discord
+    Github.com/MavenWare
+*/
+
 public final class main extends JavaPlugin implements Listener
 {
     private Set<Material> blockedItems;
@@ -32,19 +42,22 @@ public final class main extends JavaPlugin implements Listener
     {
         saveDefaultConfig();
         loadConfiguration();
-        Objects.requireNonNull(getCommand("reloadconfig")).setExecutor(this);
-        getServer().getPluginManager().registerEvents(this,this);
         getLogger().info("YouCantHaveThat Enabled");
+        getServer().getPluginManager().registerEvents(this,this);
+        Objects.requireNonNull(getCommand("reloadconfig")).setExecutor(this);
 
-        Global.configAntiBlockBreak = this.getConfig().getBoolean("AntiBreak");
-        Global.configBreakIntoAir = this.getConfig().getBoolean("BreakIntoAir");
+
+        Global.configToggleAntiBlockBreak = this.getConfig().getBoolean("AntiBreak");
+        Global.configToggleBreakIntoAir = this.getConfig().getBoolean("BreakIntoAir");
+        Global.configToggleStoragePurge = this.getConfig().getBoolean("StoragePurge");
     }
 
 
     public static class Global
     {
-        public static boolean configAntiBlockBreak;
-        public static boolean configBreakIntoAir;
+        public static boolean configToggleAntiBlockBreak;
+        public static boolean configToggleBreakIntoAir;
+        public static boolean configToggleStoragePurge;
     }
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args)
@@ -70,13 +83,15 @@ public final class main extends JavaPlugin implements Listener
         sender.sendMessage("§cUnknown subcommand.");
         return true;
     }
+
     ////////////////////////////////////////////////////////////
     // Establishing banned items via Config.
     ////////////////////////////////////////////////////////////
     private void loadConfiguration()
     {
-        Global.configAntiBlockBreak = this.getConfig().getBoolean("AntiBreak");
-        Global.configBreakIntoAir = this.getConfig().getBoolean("BreakIntoAir");
+        Global.configToggleAntiBlockBreak = this.getConfig().getBoolean("AntiBreak");
+        Global.configToggleBreakIntoAir = this.getConfig().getBoolean("BreakIntoAir");
+        Global.configToggleStoragePurge = this.getConfig().getBoolean("StoragePurge");
 
         blockedItems = new HashSet<>();
         FileConfiguration config = getConfig();
@@ -95,7 +110,6 @@ public final class main extends JavaPlugin implements Listener
         }
     }
 
-
     ////////////////////////////////////////////////////////////
     // Interaction Check
     // Checks for any placements of items/materials
@@ -103,8 +117,8 @@ public final class main extends JavaPlugin implements Listener
     @EventHandler
     public void interactionCheck (PlayerInteractEvent e)
     {
-        Material material = e.getMaterial();
         Player player = e.getPlayer();
+        Material material = e.getMaterial();
         PlayerInventory inventory = player.getInventory();
         ItemStack secondHand = inventory.getItemInOffHand();
 
@@ -118,8 +132,6 @@ public final class main extends JavaPlugin implements Listener
         }
     }
 
-
-
     ////////////////////////////////////////////////////////////
     // Block Break Check
     // Runs off the Anti-Inventory List
@@ -127,23 +139,22 @@ public final class main extends JavaPlugin implements Listener
     @EventHandler
     public void blockBreakChecker (BlockBreakEvent e)
     {
-        Material material = e.getBlock().getType();
-        Player player = e.getPlayer();
         Block block = e.getBlock();
+        Player player = e.getPlayer();
+        Material material = block.getType();
 
-        if (!player.hasPermission("youcanthavethat.bypass"))
+        if (player.hasPermission("youcanthavethat.bypass"))
         {
-            if (Global.configAntiBlockBreak)
+            if (Global.configToggleAntiBlockBreak)
             {
                 if (blockedItems.contains(material))
                 {
-                    if (Global.configBreakIntoAir) block.setType(Material.AIR);
+                    if (Global.configToggleBreakIntoAir) block.setType(Material.AIR);
                     else e.setCancelled(true);
                 }
             }
         }
     }
-
 
     ////////////////////////////////////////////////////////////
     // Opening any container will trigger the check.
@@ -158,8 +169,6 @@ public final class main extends JavaPlugin implements Listener
 
         if (!player.hasPermission("youcanthavethat.bypass")) checkInventoryProcess(inventory, secondHand);
     }
-
-
 
     ////////////////////////////////////////////////////////////
     // PlayerPickUpItem, Check Inventory for bad items,
@@ -178,29 +187,28 @@ public final class main extends JavaPlugin implements Listener
                 PlayerInventory inventory = player.getInventory();
                 ItemStack secondHand = inventory.getItemInOffHand();
                 @NotNull Material material = e.getItem().getItemStack().getType();
-                
-                if (blockedItems.contains(material))
-                {
-                    e.setCancelled(true);
-                    item.remove();
-                    checkInventoryProcess(inventory, secondHand);
-                }
+
+                if (blockedItems.contains(material)) e.setCancelled(true); item.remove(); checkInventoryProcess(inventory, secondHand);
             }
         }
     }
 
     private void checkInventoryProcess(PlayerInventory inventory, ItemStack secondHand)
     {
+        if (!Global.configToggleStoragePurge) return;
         // Loop through contents and remove blocked items
         for (ItemStack item : inventory.getContents())
         {
             if (item != null && blockedItems.contains(item.getType()))
             {
                 inventory.remove(item.getType()); // removes ALL stacks of that type
+
+                // PatchFix - Item Removal happens so quickly that it forgets to remove the remaining stack.
+                // This runs it again 2 seconds after the first time.
                 getServer().getScheduler().runTaskLater(this, task -> {inventory.remove(item.getType());}, 40L); // 20 ticks = 1 second
             }
         }
-        // Check1
+        // Also checks offhand in case the fucker tried to be smart.
         if (blockedItems.contains(secondHand.getType())) inventory.setItemInOffHand(null);
     }
 

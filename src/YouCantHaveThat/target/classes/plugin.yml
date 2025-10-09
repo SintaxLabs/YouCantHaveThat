@@ -1,5 +1,5 @@
 name: YouCantHaveThat
-version: '1.0'
+version: '1.0.1'
 main: me.sintaxlabs.YouCantHaveThat.main
 api-version: '1.16'
 

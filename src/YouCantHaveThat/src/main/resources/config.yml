@@ -9,6 +9,10 @@ AntiBreak: true
 # AntiBreak must be true. When a listed item is attempted to be broken, it will simply vanish.
 BreakIntoAir: false
 
+# Removes listed items from inventories and storage sources upon a player opening one.
+# Added in case you wanted to block something from being broke but didn't want it deleted off of players.
+StoragePurge: true
+
 # The list will block these items from the following actions:
 # - Placing
 # - Picking Up
